@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LENQ — Living Essentials Next Quality</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark: #2b2e35;
+      --cyan: #29b6e8;
+      --cyan-light: #6dd4f5;
+      --cyan-dark: #1a8ab5;
+      --white: #ffffff;
+      --off-white: #f4f7fb;
+      --gray: #6b7280;
+      --light-gray: #e8edf4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 6%;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(41,182,232,0.15);
+      animation: fadeDown 0.7s ease both;
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--dark); letter-spacing: -1px; }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--dark); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta {
+      background: var(--cyan); color: white; border: none; padding: 0.55rem 1.4rem;
+      border-radius: 50px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+      font-size: 0.9rem; cursor: pointer; transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--cyan-dark); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 7rem 6% 4rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f4f7fb 0%, #e8f6fd 100%);
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(41,182,232,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(41,182,232,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content { max-width: 600px; position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(41,182,232,0.12);
+      color: var(--cyan-dark);
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800; line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.7s 0.35s ease both;
+    }
+    .hero h1 span { color: var(--cyan); }
+    .hero p {
+      font-size: 1.1rem; color: var(--gray); line-height: 1.7;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.65s ease both; }
+    .btn-primary {
+      background: var(--cyan); color: white;
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      transition: all 0.2s; box-shadow: 0 8px 24px rgba(41,182,232,0.35);
+    }
+    .btn-primary:hover { background: var(--cyan-dark); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(41,182,232,0.4); }
+    .btn-secondary {
+      background: transparent; color: var(--dark);
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      border: 2px solid var(--light-gray); transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    .hero-visual {
+      position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 1rem;
+      animation: fadeLeft 0.9s 0.4s ease both;
+    }
+    .hero-badge {
+      background: white; border-radius: 16px;
+      padding: 1rem 1.4rem; display: flex; align-items: center; gap: 0.8rem;
+      box-shadow: 0 8px 32px rgba(43,46,53,0.1);
+    }
+    .hero-badge-icon { font-size: 1.8rem; }
+    .hero-badge-text { font-size: 0.8rem; color: var(--gray); }
+    .hero-badge-text strong { display: block; color: var(--dark); font-size: 0.95rem; }
+
+    /* ABOUT */
+    .about {
+      padding: 6rem 6%;
+      background: white;
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; color: var(--dark); margin-bottom: 1.2rem; line-height: 1.2;
+    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-text p { color: var(--gray); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem; }
+    .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .about-card {
+      background: var(--off-white); border-radius: 16px; padding: 1.4rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      border-left: 4px solid var(--cyan);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .about-card:hover { transform: translateX(6px); box-shadow: 0 4px 16px rgba(41,182,232,0.15); }
+    .about-card-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .about-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+    .about-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.5; margin: 0; }
+
+    /* PRODUCTS */
+    .products {
+      padding: 6rem 6%;
+      background: linear-gradient(180deg, var(--off-white) 0%, #e8f6fd 100%);
+    }
+    .products-header { text-align: center; margin-bottom: 3.5rem; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .product-card {
+      background: white; border-radius: 24px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(43,46,53,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 48px rgba(41,182,232,0.2); }
+    .product-img {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      position: relative; overflow: hidden;
+    }
+    .product-img.blue { background: linear-gradient(135deg, #e8f6fd, #c5eaf8); }
+    .product-img.teal { background: linear-gradient(135deg, #e0f7f4, #b2ece6); }
+    .product-img.indigo { background: linear-gradient(135deg, #eef0fd, #cdd2f8); }
+    .product-body { padding: 1.6rem; }
+    .product-tag {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 0.5rem;
+    }
+    .product-body h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .product-body p { font-size: 0.88rem; color: var(--gray); line-height: 1.6; margin-bottom: 1.2rem; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--dark); }
+    .product-price span { font-size: 0.8rem; font-weight: 400; color: var(--gray); }
+    .product-btn {
+      background: var(--cyan); color: white; border: none;
+      padding: 0.5rem 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.85rem;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+    }
+    .product-btn:hover { background: var(--cyan-dark); }
+
+    /* WHY LENQ */
+    .why {
+      padding: 6rem 6%;
+      background: var(--dark);
+      color: white;
+    }
+    .why-header { text-align: center; margin-bottom: 3.5rem; }
+    .why-header .section-label { color: var(--cyan-light); }
+    .why-header .section-title { color: white; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .why-card {
+      background: rgba(255,255,255,0.05); border-radius: 20px; padding: 2rem;
+      border: 1px solid rgba(41,182,232,0.2);
+      transition: background 0.3s, border-color 0.3s;
+      text-align: center;
+    }
+    .why-card:hover { background: rgba(41,182,232,0.1); border-color: var(--cyan); }
+    .why-icon { font-size: 2.8rem; margin-bottom: 1rem; }
+    .why-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; color: white; }
+    .why-card p { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+    /* HOW TO BUY */
+    .how {
+      padding: 6rem 6%;
+      background: white;
+    }
+    .how-header { text-align: center; margin-bottom: 3.5rem; }
+    .steps { display: flex; gap: 0; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+    .step { text-align: center; flex: 1; min-width: 180px; max-width: 220px; padding: 0 1rem; position: relative; }
+    .step:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -10px; top: 28px;
+      font-size: 1.5rem; color: var(--cyan); font-weight: 300;
+    }
+    .step-number {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
+      color: white; font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 8px 20px rgba(41,182,232,0.35);
+    }
+    .step h4 { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.4rem; }
+    .step p { font-size: 0.85rem; color: var(--gray); line-height: 1.5; }
+    .how-cta { text-align: center; margin-top: 3rem; }
+    .social-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+    .social-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.6rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .social-btn.wa { background: #25D366; color: white; }
+    .social-btn.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+    .social-btn.fb { background: #1877F2; color: white; }
+    .social-btn.tt { background: #010101; color: white; }
+    .social-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,0.5);
+      padding: 2.5rem 6%; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: white; }
+    .footer-logo span { color: var(--cyan); }
+    footer p { font-size: 0.85rem; }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeLeft { from { opacity: 0; transform: translate(40px, -50%); } to { opacity: 1; transform: translate(0, -50%); } }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .products-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .step:not(:last-child)::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">LEN<span>Q</span></div>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#como-comprar">Cómo comprar</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="https://wa.me/521XXXXXXXXXX" class="nav-cta">Comprar ahora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">🇲🇽 Envíos en Guadalajara</div>
+    <h1>Productos que<br/><span>mejoran tu hogar</span>,<br/>al precio justo.</h1>
+    <p>En LENQ seleccionamos productos esenciales de calidad real para que vivas mejor — sin gastar de más. Menos de $1,000 por cada uno.</p>
+    <div class="hero-btns">
+      <a href="#productos" class="btn-primary">Ver catálogo →</a>
+      <a href="#como-comprar" class="btn-secondary">¿Cómo comprar?</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-badge">
+      <div class="hero-badge-icon">✅</div>
+      <div class="hero-badge-text"><strong>Calidad garantizada</strong>Productos probados y seleccionados</div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-icon">🚚</div>
+      <div class="hero-badge-text"><strong>Envío en GDL</strong>Rápido y seguro a tu puerta</div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-icon">💬</div>
+      <div class="hero-badge-text"><strong>Atención personal</strong>Te asesoramos antes de comprar</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="nosotros">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label">Quiénes somos</div>
+      <h2 class="section-title">Dos amigos con una misión: hacer tu vida más fácil</h2>
+      <p>LENQ nació de una idea simple: ¿por qué los productos de calidad tienen que ser caros? Somos dos emprendedores tapatíos que decidimos buscar lo mejor del mercado y traerlo directo a ti.</p>
+      <p>Cada producto que ofrecemos lo evaluamos personalmente. Si no nos convence, no lo vendemos. Así de sencillo.</p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">🔍</div>
+        <div>
+          <h4>Selección cuidadosa</h4>
+          <p>Solo traemos productos que realmente funcionan y que nosotros mismos usaríamos.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">💰</div>
+        <div>
+          <h4>Precio accesible</h4>
+          <p>Todos nuestros productos están por debajo de $1,000 MXN. Calidad sin pretextos.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🤝</div>
+        <div>
+          <h4>Trato directo</h4>
+          <p>Hablas con nosotros directamente. Sin bots, sin call centers. Atención real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="productos">
+  <div class="products-header">
+    <div class="section-label">Catálogo</div>
+    <h2 class="section-title">Nuestros productos</h2>
+    <p style="color:var(--gray); max-width:500px; margin:0.5rem auto 0; line-height:1.7;">Tres esenciales seleccionados para simplificar y mejorar tu día a día.</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img blue">🧺</div>
+      <div class="product-body">
+        <div class="product-tag">Organización del hogar</div>
+        <h3>Tendedero Retráctil Plegable</h3>
+        <p>Ahorra espacio sin sacrificar funcionalidad. Se extiende cuando lo necesitas y se pliega cuando no. Ideal para departamentos y espacios pequeños.</p>
+        <div class="product-footer">
+          <div class="product-price">$XXX <span>MXN</span></div>
+          <a href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20el%20tendedero%20retráctil" class="product-btn">Pedir ahora</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img teal">🔬</div>
+      <div class="product-body">
+        <div class="product-tag">Cuidado personal</div>
+        <h3>Limpiador Ultrasónico de Gafas y Joyería</h3>
+        <p>Limpieza profunda con vibraciones ultrasónicas. Elimina suciedad, grasa y bacterias en minutos. Perfecto para lentes, anillos, aretes y más.</p>
+        <div class="product-footer">
+          <div class="product-price">$XXX <span>MXN</span></div>
+          <a href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20el%20limpiador%20ultrasónico" class="product-btn">Pedir ahora</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img indigo">📸</div>
+      <div class="product-body">
+        <div class="product-tag">Fotografía & momentos</div>
+        <h3>Cámara de Impresión Instantánea</h3>
+        <p>Captura e imprime tus momentos favoritos al instante. Compacta, divertida y perfecta para regalar. Tus recuerdos en papel en segundos.</p>
+        <div class="product-footer">
+          <div class="product-price">$XXX <span>MXN</span></div>
+          <a href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20la%20cámara%20instantánea" class="product-btn">Pedir ahora</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY LENQ -->
+<section class="why">
+  <div class="why-header">
+    <div class="section-label">¿Por qué elegirnos?</div>
+    <h2 class="section-title">La diferencia LENQ</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">⭐</div>
+      <h3>Calidad comprobada</h3>
+      <p>Cada producto pasa por nuestra revisión personal antes de llegar a tus manos. No vendemos lo que no usaríamos nosotros mismos.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💵</div>
+      <h3>Siempre bajo $1,000</h3>
+      <p>Creemos que la calidad no debe ser un lujo. Todos nuestros productos están diseñados para ser accesibles para cualquier presupuesto.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📦</div>
+      <h3>Envío en Guadalajara</h3>
+      <p>Entrega rápida en toda la Zona Metropolitana de Guadalajara. Tu pedido llega a donde estés, seguro y a tiempo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO BUY -->
+<section class="how" id="como-comprar">
+  <div class="how-header">
+    <div class="section-label">Proceso de compra</div>
+    <h2 class="section-title">Comprar es muy fácil</h2>
+    <p style="color:var(--gray); max-width:440px; margin:0.5rem auto 0;">En 3 pasos tienes tu producto en casa.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <h4>Elige tu producto</h4>
+      <p>Explora nuestro catálogo y decide qué quieres llevar a tu hogar.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <h4>Contáctanos</h4>
+      <p>Escríbenos por WhatsApp, Instagram o Facebook. Te atendemos al momento.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <h4>Recíbelo en casa</h4>
+      <p>Coordinamos la entrega en tu dirección dentro de GDL. ¡Así de simple!</p>
+    </div>
+  </div>
+  <div class="how-cta">
+    <p style="color:var(--gray); font-size:0.95rem;">Encuéntranos en tus redes favoritas</p>
+    <div class="social-btns">
+      <a href="#" class="social-btn wa">💬 WhatsApp</a>
+      <a href="#" class="social-btn ig">📸 Instagram</a>
+      <a href="#" class="social-btn fb">👍 Facebook</a>
+      <a href="#" class="social-btn tt">🎵 TikTok</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="footer-logo">LEN<span>Q</span></div>
+  <p>© 2025 LENQ — Living Essentials Next Quality. Guadalajara, México.</p>
+  <p style="font-size:0.8rem;">Hecho con ❤️ para mejorar tu hogar.</p>
+</footer>
+
+</body>
+</html>
