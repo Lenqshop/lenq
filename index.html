@@ -239,6 +239,79 @@
     }
     .product-btn:hover { background: var(--cyan-dark); }
 
+    /* SHIPPING BADGE */
+    .shipping-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(41,182,232,0.1); border: 1px solid rgba(41,182,232,0.3);
+      color: var(--cyan-dark); font-size: 0.78rem; font-weight: 600;
+      padding: 0.3rem 0.8rem; border-radius: 50px; margin-top: 0.6rem;
+    }
+
+    /* REVIEWS */
+    .reviews {
+      padding: 6rem 6%;
+      background: white;
+    }
+    .reviews-header { text-align: center; margin-bottom: 3.5rem; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .review-card {
+      background: var(--off-white); border-radius: 20px; padding: 1.8rem;
+      position: relative; transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--light-gray);
+    }
+    .review-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(41,182,232,0.12); }
+    .review-card::before {
+      content: '"'; font-family: 'Syne', sans-serif;
+      font-size: 5rem; color: var(--cyan); opacity: 0.2;
+      position: absolute; top: -0.5rem; left: 1.2rem; line-height: 1;
+    }
+    .review-stars { color: #f59e0b; font-size: 1rem; margin-bottom: 0.8rem; }
+    .review-text { font-size: 0.95rem; color: #4b5563; line-height: 1.7; margin-bottom: 1.2rem; font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 0.8rem; }
+    .review-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; color: white; font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .review-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; }
+    .review-product { font-size: 0.78rem; color: var(--cyan); font-weight: 600; }
+
+    /* FAQ */
+    .faq {
+      padding: 6rem 6%;
+      background: linear-gradient(180deg, #e8f6fd 0%, var(--off-white) 100%);
+    }
+    .faq-header { text-align: center; margin-bottom: 3.5rem; }
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item {
+      background: white; border-radius: 16px;
+      border: 1px solid var(--light-gray);
+      overflow: hidden; transition: box-shadow 0.2s;
+    }
+    .faq-item:hover { box-shadow: 0 4px 20px rgba(41,182,232,0.1); }
+    .faq-question {
+      width: 100%; background: none; border: none; padding: 1.3rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; text-align: left; gap: 1rem;
+    }
+    .faq-question span { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--dark); }
+    .faq-icon {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(41,182,232,0.1); color: var(--cyan);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700; transition: transform 0.3s, background 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--cyan); color: white; }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+      padding: 0 1.5rem;
+    }
+    .faq-answer p { font-size: 0.95rem; color: #4b5563; line-height: 1.7; padding-bottom: 1.3rem; }
+    .faq-item.open .faq-answer { max-height: 200px; }
+
     /* WHY LENQ */
     .why {
       padding: 6rem 6%;
@@ -317,6 +390,7 @@
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .products-grid { grid-template-columns: 1fr; }
       .why-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .nav-cta { display: none; }
       .hamburger { display: flex; }
@@ -436,7 +510,10 @@
         <h3>Tendedero Retráctil Plegable</h3>
         <p>Ahorra espacio sin sacrificar funcionalidad. Se extiende cuando lo necesitas y se pliega cuando no. Ideal para departamentos y espacios pequeños.</p>
         <div class="product-footer">
-          <div class="product-price">$199 <span>MXN</span></div>
+          <div>
+            <div class="product-price">$199 <span>MXN</span></div>
+            <div class="shipping-badge">🚚 Envío $100 MXN · ZMG</div>
+          </div>
           <a href="https://wa.me/523323410087?text=Hola%2C%20me%20interesa%20el%20Tendedero%20Retr%C3%A1ctil%20Plegable%20%F0%9F%A7%BA%20%24199%20MXN.%20%C2%BFMe%20pueden%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" class="product-btn" aria-label="Pedir Tendedero Retráctil" target="_blank">Pedir ahora</a>
         </div>
       </div>
@@ -449,7 +526,10 @@
         <h3>Limpiador Ultrasónico de Gafas y Joyería</h3>
         <p>Limpieza profunda con vibraciones ultrasónicas. Elimina suciedad, grasa y bacterias en minutos. Perfecto para lentes, anillos, aretes y más.</p>
         <div class="product-footer">
-          <div class="product-price">$399 <span>MXN</span></div>
+          <div>
+            <div class="product-price">$399 <span>MXN</span></div>
+            <div class="shipping-badge">🚚 Envío $100 MXN · ZMG</div>
+          </div>
           <a href="https://wa.me/523323410087?text=Hola%2C%20me%20interesa%20el%20Limpiador%20Ultras%C3%B3nico%20de%20Gafas%20y%20Joyer%C3%ADa%20%F0%9F%94%AC%20%24399%20MXN.%20%C2%BFMe%20pueden%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" class="product-btn" aria-label="Pedir Limpiador Ultrasónico" target="_blank">Pedir ahora</a>
         </div>
       </div>
@@ -462,7 +542,10 @@
         <h3>Cámara de Impresión Instantánea</h3>
         <p>Captura e imprime tus momentos favoritos al instante. Compacta, divertida y perfecta para regalar. Tus recuerdos en papel en segundos.</p>
         <div class="product-footer">
-          <div class="product-price">$899 <span>MXN</span></div>
+          <div>
+            <div class="product-price">$899 <span>MXN</span></div>
+            <div class="shipping-badge">🚚 Envío $100 MXN · ZMG</div>
+          </div>
           <a href="https://wa.me/523323410087?text=Hola%2C%20me%20interesa%20la%20C%C3%A1mara%20de%20Impresi%C3%B3n%20Instant%C3%A1nea%20%F0%9F%93%B8%20%24899%20MXN.%20%C2%BFMe%20pueden%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" class="product-btn" aria-label="Pedir Cámara de Impresión Instantánea" target="_blank">Pedir ahora</a>
         </div>
       </div>
@@ -531,6 +614,106 @@
   </div>
 </section>
 
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="reviews-header">
+    <div class="section-label">Testimonios</div>
+    <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+    <p style="color:#4b5563; max-width:480px; margin:0.5rem auto 0; line-height:1.7;">Personas reales que ya disfrutan sus productos LENQ en casa. 🏠</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Llegó súper rápido y funciona perfectísimo. El limpiador dejó mis lentes como nuevos en menos de 2 minutos. ¡Increíble para el precio!</p>
+      <div class="review-author">
+        <div class="review-avatar">MA</div>
+        <div>
+          <div class="review-name">María A.</div>
+          <div class="review-product">Limpiador Ultrasónico</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Vivimos en un departamento pequeño y el tendedero fue un game changer. Se instala fácil y cuando no lo usas casi no ocupa espacio. ¡Lo recomiendo!</p>
+      <div class="review-author">
+        <div class="review-avatar">CR</div>
+        <div>
+          <div class="review-name">Carlos R.</div>
+          <div class="review-product">Tendedero Retráctil</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">La cámara es un encanto, la compré para regalo de cumpleaños y fue el hit de la fiesta. Las fotos salen bonitas y al instante. ¡Ya quiero una para mí!</p>
+      <div class="review-author">
+        <div class="review-avatar">SL</div>
+        <div>
+          <div class="review-name">Sofía L.</div>
+          <div class="review-product">Cámara Instantánea</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-header">
+    <div class="section-label">Preguntas frecuentes</div>
+    <h2 class="section-title">¿Tienes dudas? ¡Aquí las resolvemos!</h2>
+    <p style="color:#4b5563; max-width:480px; margin:0.5rem auto 0; line-height:1.7;">Si no encuentras tu respuesta, escríbenos por WhatsApp y con gusto te ayudamos. 😊</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>¿Hacen envíos fuera de Guadalajara?</span>
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">
+        <p>Por ahorita solo hacemos envíos dentro de la Zona Metropolitana de Guadalajara. ¡Pero tranquilo/a, próximamente estaremos llegando a más ciudades de México! 🇲🇽</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>¿Cuánto tarda en llegar mi pedido?</span>
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">
+        <p>Tu pedido llegará en un plazo de 3 a 5 días hábiles después de confirmada tu compra. Te avisamos en cada paso del camino para que estés tranquilo/a. 📦</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>¿Aceptan devoluciones?</span>
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">
+        <p>¡Sí! Tu satisfacción es lo más importante para nosotros. Tienes hasta 7 días naturales después de recibir tu producto para solicitar una devolución si algo no salió como esperabas. 🤝</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>¿Cuánto cuesta el envío?</span>
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">
+        <p>El costo de envío es de $100 MXN a cualquier dirección dentro de la Zona Metropolitana de Guadalajara. ¡Rápido, seguro y directo a tu puerta! 🚚</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>¿Cómo puedo pagar?</span>
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">
+        <p>Coordinamos el método de pago directamente por WhatsApp. ¡Es fácil y rápido! Escríbenos y te decimos las opciones disponibles. 💳</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer id="contacto">
   <div class="footer-logo">LEN<span>Q</span></div>
@@ -548,6 +731,12 @@
   function closeMobileMenu() {
     hamburger.classList.remove('open');
     mobileMenu.classList.remove('open');
+  }
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
   }
 </script>
 </body>
